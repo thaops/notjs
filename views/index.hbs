@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+       
+        
+        .containerbill {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .headerbill {
+            padding: 20px;
+            text-align: center;
+            background-color: #29b952;
+            color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .headerbill h1 {
+            margin: 0;
+        }
+        .invoice-details {
+            padding: 20px;
+        }
+        .invoice-details p {
+            margin: 5px 0;
+        }
+        .bill-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .bill-table th, .bill-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .bill-table th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            padding: 20px;
+            text-align: right;
+        }
+        .total p {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+    </style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff; /* Màu nền xanh nhạt */
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff; /* Màu nền trắng */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hiển thị đổ bóng */
+            overflow: hidden; /* Đảm bảo không hiển thị scrollbar */
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #2ecc71; /* Màu xanh lá cây */
+            color: #fff;
+            padding: 20px;
+            padding-bottom: 50%;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+            margin-bottom: 30px; /* Thêm margin-bottom để tách cách giữa "Dashboard" và menu */
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+        .sidebar li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .sidebar li a:hover {
+            color: #d5f8d5; /* Màu xanh lá cây nhạt khi hover */
+        }
+        .main-content {
+            width: 80%;
+            padding: 20px;
+        }
+        .user-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .user-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff; /* Màu nền trắng */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hiển thị đổ bóng */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .user-item h2 {
+            margin: 0;
+            color: #2ecc71; /* Màu xanh lá cây */
+        }
+        .user-item p {
+            margin: 5px 0;
+        }
+        .action-buttons {
+            margin-bottom: 20px;
+        }
+        .action-buttons button {
+            padding: 5px 10px;
+            margin-left: 5px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: #2ecc71; /* Màu xanh lá cây */
+            color: #fff;
+            transition: background-color 0.3s ease; /* Hiệu ứng hover */
+        }
+        .action-buttons button:hover {
+            background-color: #27ae60; /* Màu xanh lá cây tối hơn khi hover */
+        }
+          .table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd; /* Đường viền bảng */
+        }
+
+        /* CSS cho tiêu đề cột */
+        .table th {
+            background-color: #f2f2f2; /* Màu nền của tiêu đề cột */
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd; /* Đường viền dưới của tiêu đề cột */
+        }
+
+        /* CSS cho dữ liệu của bảng */
+        .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd; /* Đường viền dưới của dữ liệu */
+        }
+
+        /* CSS cho hàng lẻ */
+        .table tbody tr:nth-child(odd) {
+            background-color: #f9f9f9; /* Màu nền của các hàng lẻ */
+        }
+
+        /* CSS cho nút action */
+        .table .action-buttons button {
+            padding: 5px 10px;
+            margin-left: 5px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: #2ecc71; /* Màu nền của nút */
+            color: #fff;
+            transition: background-color 0.3s ease; /* Hiệu ứng hover */
+        }
+
+        .table .action-buttons button:hover {
+            background-color: #27ae60; /* Màu nền tối hơn của nút khi hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Dashboard</h2>
+            <ul>
+              <li><a href="#" class="tab-link active" onclick="toggleTab(event, 'product-tab')">Products</a></li>
+            <li><a href="#" class="tab-link" onclick="toggleTab(event, 'user-tab')">Users</a></li>
+            <li><a href="#" class="tab-link" onclick="toggleTab(event, 'order-tab')">Category</a></li>
+            <li><a href="#" class="tab-link" onclick="toggleTab(event, 'setting-tab')">Bill</a></li>
+            <li><a href="#" class="tab-link" >Log Out</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+
+<div id="product-tab" class="tab-content" >
+    <h1>Product Management</h1>
+    <div class="action-buttons">
+        <button onclick="window.location.href='http://localhost:3000/add'">Add Product</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Image</th>
+                <th scope="col">Title</th>
+                <th scope="col">Size</th>
+                <th scope="col">Origin</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products}}
+            <tr>
+                <th scope="row">{{@index}}</th>
+                <td><img src="{{this.img}}" alt="{{this.title}}" style="max-width: 100px;"></td>
+                <td>{{this.title}}</td>
+                <td>{{this.kichthuoc}}</td>
+                <td>{{this.xuatxu}}</td>
+                <td>{{this.tinhtrang}}</td>
+                <td>
+            <a  href="/edit/{{this._id}}">Edit</a>
+                    <a href="" id="delete-product" data-toggle="modal" data-id="{{this._id}}"  data-target="#exampleModal">Delete</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+            
+<div id="user-tab" class="tab-content" style="display: none;">
+    <h1>User Management</h1>
+    <div class="action-buttons">
+        </button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Email</th>
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {{#each courses}}
+            <tr>
+                <th scope="row">{{@index}}</th>
+                <td>{{this.email}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.phone}}</td>
+                
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+            <div id="order-tab" class="tab-content" style="display: none;">
+                <!-- Nội dung cho tab Orders -->
+                <h1>Category Management</h1>
+    <div class="action-buttons">
+        <button onclick="window.location.href='http://localhost:3000/add'">Add Category</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Categories</th>
+                 <th scope="col">Actions</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            {{#each categories}}
+            <tr>
+                <th scope="row">{{@index}}</th>
+                <td>{{this.name}}</td>
+                
+                <td>
+                    <button  onclick="window.location.href='http://localhost:3000/edit'">Edit</button>
+                    <button>Delete</button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+                 </div>
+            <div id="setting-tab" class="tab-content" style="display: none;">
+                <!-- Nội dung cho tab Settings -->
+                <div class="containerbill">
+        <div class="headerbill">
+            <h1>Bill</h1>
+            <p>Date: January 1, 2022</p>
+        </div>
+        <div class="invoice-details">
+            <p><strong>Name:</strong> Thao</p>
+            <p><strong>Email:</strong> thao@gmail.com</p>
+        </div>
+        <table class="bill-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hoa A</td>
+                    <td>2</td>
+                    <td>$20.00</td>
+                </tr>
+                <tr>
+                    <td>Hoa B</td>
+                    <td>1</td>
+                    <td>$15.00</td>
+                </tr>
+                <tr>
+                    <td>Hoa C</td>
+                    <td>3</td>
+                    <td>$24.00</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="total">
+            <p><strong>Total:</strong> $59.00</p>
+            <button>Xát nhận</button>
+            <button>Huy</button>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTab(event, tabId) {
+            event.preventDefault();
+            var i, tabContent, tabLinks;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+            tabLinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tabLinks.length; i++) {
+                tabLinks[i].classList.remove("active");
+            }
+            document.getElementById(tabId).style.display = "block";
+            event.currentTarget.classList.add("active");
+        }
+        
+
+        
+         document.addEventListener('DOMContentLoaded', function(){
+        var productId ; // Khai báo productId ở phạm vi có thể truy cập được từ bên ngoài
+
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            productId = button.data('id'); // Lưu giá trị id vào biến productId
+            console.log(productId);
+        });
+
+        var deleteProductForm = document.forms['delete-product-from'];
+        var deleteButton = document.getElementById('deleteButton');
+        deleteButton.onclick = function(){
+            deleteProductForm.action = '/delete/'+productId+'?_method=DELETE'; // Gán action cho biểu mẫu
+            deleteProductForm.submit(); // Gửi biểu mẫu
+        };
+    });
+    </script>
+</body>
+{{!-- delete --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xóa Product !!!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn Chắc chắn muốn xóa khóa học này ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="deleteButton" class="btn btn-danger">Xóa</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{{!-- delete from --}}
+<!-- Trong thẻ <form> của bạn -->
+<form name="delete-product-from" method="POST" action="/delete/{{this._id}}?_method=DELETE" ></form>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+       
+        
+        .containerbill {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .headerbill {
+            padding: 20px;
+            text-align: center;
+            background-color: #29b952;
+            color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .headerbill h1 {
+            margin: 0;
+        }
+        .invoice-details {
+            padding: 20px;
+        }
+        .invoice-details p {
+            margin: 5px 0;
+        }
+        .bill-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .bill-table th, .bill-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .bill-table th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            padding: 20px;
+            text-align: right;
+        }
+        .total p {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="containerbill">
+        <div class="headerbill">
+            <h1>Invoice</h1>
+            <p>Date: January 1, 2022</p>
+        </div>
+        <div class="invoice-details">
+            <p><strong>Name:</strong> Thao</p>
+            <p><strong>Email:</strong> thao@gmail.com</p>
+        </div>
+        <table class="bill-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hoa A</td>
+                    <td>2</td>
+                    <td>$20.00</td>
+                </tr>
+                <tr>
+                    <td>Hoa B</td>
+                    <td>1</td>
+                    <td>$15.00</td>
+                </tr>
+                <tr>
+                    <td>Hoa C</td>
+                    <td>3</td>
+                    <td>$24.00</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="total">
+            <p><strong>Total:</strong> $59.00</p>
+            <button>Xát nhận</button>
+            <button>Huy</button>
+        </div>
+    </div>
+</body>
+</html>

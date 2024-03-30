@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff; /* Màu nền xanh nhạt */
+        }
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff; /* Màu nền trắng */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hiển thị đổ bóng */
+        }
+        h2 {
+            color: #2ecc71; /* Màu xanh lá cây */
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input {
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #2ecc71; /* Màu xanh lá cây */
+            color: #fff;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #27ae60; /* Màu xanh lá cây tối hơn khi hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add Product</h2>
+        <form method="POST" >
+            <label for="title">Tên sản phẩm:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="gia">Giá Tiền:</label>
+            <input type="text" id="gia" name="gia" required>
+
+            <label for="loai">Loai Cây:</label>
+            <input type="text" id="loai" name="loai" required>
+
+             <label for="kichthuoc">Kích Cở:</label>
+            <input type="text" id="kichthuoc" name="kichthuoc" required>
+             <label for="xuatxu">Xuất Xứ:</label>
+            <input type="text" id="xuatxu" name="xuatxu" required>
+
+            <label for="titlemini">Môi trường sống:</label>
+            <input type="text" id="titlemini" name="titlemini" required>
+
+
+            <label for="tinhtrang">Số lượng:</label>
+            <input type="text" id="tinhtrang" name="tinhtrang" required>
+
+            <label for="img">Link ảnh:</label>
+            <input type="text" id="img" name="img" required>
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+</body>
+</html>
