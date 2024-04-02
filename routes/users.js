@@ -8,16 +8,16 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/login', function(req, res, next) {
-  Course.find({})
-      .exec()
-      .then((courses) => {
-          res.render('login', { courses });
-      })
-      .catch((err) => {
-          res.status(500).json({ err: err.message });
-      });
-});
+// router.get('/login', function(req, res, next) {
+//   Course.find({})
+//       .exec()
+//       .then((courses) => {
+//           res.render('login', { courses });
+//       })
+//       .catch((err) => {
+//           res.status(500).json({ err: err.message });
+//       });
+// });
 
 
 router.post('/login', function(req, res, next) {

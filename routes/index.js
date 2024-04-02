@@ -45,12 +45,12 @@ router.get('/add', function(req, res, next) {
   res.render('add');
 })
 router.post('/add', function(req, res, next) {
-  const productData = req.body; // Lấy dữ liệu từ request body
-  const product = new Product(productData); // Tạo một đối tượng Product từ dữ liệu nhận được
+  const productData = req.body;
+  const product = new Product(productData); 
 
-  product.save() // Gọi phương thức save() để lưu sản phẩm
+  product.save() 
     .then(savedProduct => {
-      // Xử lý khi lưu sản phẩm thành công
+      
       res.redirect('/')
     })
     .catch(error => {
@@ -99,8 +99,7 @@ router.delete('/api/delete/:_id', function(req, res, next){
 });
 
 router.get('/api/get/product', function(req,res){
-  // var gia = req.body.gia;
-  // {gia:{$lt:gia}}
+
   Product.find()
   .then(product => {
     
@@ -111,12 +110,12 @@ router.get('/api/get/product', function(req,res){
   })
 });
 
+//tim
 router.post('/api/get/product', function(req, res){
-  const title = req.body.title; // Lấy tiêu đề từ body của yêu cầu POST
+  const title = req.body.title;
 
   if (title) {
-    // Nếu có tiêu đề được truyền từ client, thực hiện tìm kiếm
-    Product.find({ title: { $regex: title, $options: 'i' } }) // Sử dụng $regex để tìm kiếm theo tiêu đề (không phân biệt hoa thường)
+    Product.find({ title: { $regex: title, $options: 'i' } })
       .then(products => {
         res.json(products);
       })
@@ -124,7 +123,7 @@ router.post('/api/get/product', function(req, res){
         res.status(500).json({ msg: 'Thất bại trong việc tìm kiếm theo tiêu đề.' });
       });
   } else {
-    // Nếu không có tiêu đề được truyền, trả về thông báo lỗi
+    
     res.status(400).json({ msg: 'Tiêu đề không được tìm thấy trong dữ liệu yêu cầu.' });
   }
 });

@@ -56,6 +56,17 @@ router.post('/edit/:_id', function(req, res, next) {
     .catch(err=>{
      res.status(500).json('xóa thất bại')
     })
-  })
+  });
 
+
+
+router.get('/muc/:_id', function(req,res){
+    Category.find({_id: req.params._id})
+    .then(data =>{
+        res.json(data)
+    })
+    .catch(err=>{
+        res.status(400).json({message: err.message})
+    })
+})
 module.exports = router;
