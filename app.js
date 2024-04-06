@@ -11,6 +11,7 @@ var bai2Router = require('./routes/bai2');
 var categoryRouter = require('./routes/category');
 var billRouter = require('./routes/Bill');
 var adminRouter = require('./routes/admin');
+var cartRouter = require('./routes/cart');
 var app = express();
 
 // view engine setup
@@ -25,10 +26,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
-app.use('/users', usersRouter);
-app.use('/bai2', bai2Router);
+app.use('/us', usersRouter);
+app.use('/users', bai2Router);
 app.use('/cate',categoryRouter);
-app.use('/bill',billRouter)
+app.use('/bill',billRouter);
+app.use('/cart',cartRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

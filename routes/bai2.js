@@ -11,7 +11,7 @@ const Register = require("../models/Register");
 app.use(bodyParser.json())
 
 
-
+//dang ky
 router.post('/register', function(req, res) {
    var name = req.body.name;
    var phone = req.body.phone;
@@ -36,12 +36,14 @@ router.post('/register', function(req, res) {
    })
 
    .then(data=> {
-    res.json({msg:'tao tai khoang'})
+    res.status(200).json({code:1,"msg":'thanh công'})
+    res.json(data)
    })
    .catch(err =>{
-    res.status(500).json({msg:'khong thanh công'})
+    res.status(500).json({code:2,"msg":'khong thanh công'})
    })
 });
+
 router.post('/login', function(req, res) {
 var email = req.body.email
 var pass = req.body.pass;
@@ -52,14 +54,39 @@ Register.findOne({
 })
 .then(data=>{
     if(data){
-        res.json({msg:'đang nhập thành công'})
+        res.status(200).json({code:1,"msg":'thanh công',data});
+       
     }
     else{
-        res.status(500).json({msg:'đăng nhập thất bại'})
+        res.status(500).json({code:2,"msg":'khong thanh công'})
     }
 })
 .catch(err=>{
     res.status(500).json({msg:'có lỗi'})
 })
 });
+router.route('/api/edit/:_id')
+  .get(function(req, res, next) {
+    Register.find({_id: req.params._id})
+      .then(data =>{
+        res.json(data)
+      })
+      .catch(err=>{
+        res.status(400).json({message: err.message})
+      });
+  })
+  .post(function(req, res, next) {
+    const newData = req.body;
+    delete newData.pass; 
+
+    Register.updateOne({_id: req.params._id}, { $set: newData })
+      .then(data=>{
+        res.json({code:1,msg:'Sửa thành công'})
+      })
+      .catch(err=>{
+        res.status(500).json({msg:'Thất bại'})
+      });
+  });
+
+
 module.exports = router;

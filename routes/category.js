@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const Category = require("../models/CategoryModel");
+const Product = require("../models/Product");
 
 router.post('/post', function(req, res){
     var name = req.body.name;
@@ -68,5 +69,32 @@ router.get('/muc/:_id', function(req,res){
     .catch(err=>{
         res.status(400).json({message: err.message})
     })
-})
+});
+
+router.get('/mucProduct/:_id?', function(req, res){
+    const id = req.params._id; 
+    let query = {}; 
+    if (id) {
+        query = {
+            $or: [
+                { categoryId: id },
+                { parentId: id }
+            ]
+        };
+    }
+    Product.find(query) 
+    .then(data =>{
+        res.json(data); 
+    })
+    .catch(err=>{
+        res.status(400).json({message: err.message}); 
+    });
+});
+
+
+
+
+
+
+
 module.exports = router;

@@ -15,13 +15,17 @@ const BillSchema = new mongoose.Schema({
         required: true
     },
     status: {
-        type: String,
-        required: true
+        type: Number,
+        default: 0 // Giá trị mặc định là 0 nếu không được cung cấp
     },
     products: [{
         type: ObjectId,
         ref: 'ProductsInCart'
-    }]
+    }],
+    img:{type:String,required: true},
+    title:{type:String},
+    titlemini:{type:String},
+    
 });
 
 const CartDetail = mongoose.model('Bill', BillSchema);

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { ObjectId } = mongoose.Schema.Types;
 
 const Product = new Schema({
     key:{type:String},
@@ -12,6 +13,14 @@ const Product = new Schema({
     kichthuoc:{type:String,required: true},
     xuatxu:{type:String,required: true},
     tinhtrang:{type:String,required: true},
+    categoryId: {
+        type: ObjectId, 
+        ref: 'Categories' 
+    },
+    parentId: {
+        type: ObjectId,
+        ref: 'Categories'
+    },
 });
 
 module.exports = mongoose.model('Product', Product);

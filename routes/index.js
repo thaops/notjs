@@ -5,7 +5,6 @@ var router = express.Router();
 const Course = require("../models/Course");
 const Product = require("../models/Product");
 const Category = require("../models/CategoryModel");
-const {multipleMongooseToObject, mongooseToObject} = require('../util/mongose');
 const methodOverride = require('method-override');
 const app = express();
 const db = require("../config/db");
@@ -141,10 +140,9 @@ router.post('/api/edit/:_id', function(req, res, next) {
 });
 
 router.post('/api/add', function(req, res, next) {
-  const productData = req.body; // Lấy dữ liệu từ request body
-  const product = new Product(productData); // Tạo một đối tượng Product từ dữ liệu nhận được
-
-  product.save() // Gọi phương thức save() để lưu sản phẩm
+  const productData = req.body; 
+  const product = new Product(productData); 
+  product.save() 
    .then(data=>{
     res.json({msg:'add thanh cong'})
    })
