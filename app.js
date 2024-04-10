@@ -4,7 +4,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const methodOverride = require('method-override');
+const Handlebars = require('handlebars');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bai2Router = require('./routes/bai2');
@@ -14,6 +15,7 @@ var adminRouter = require('./routes/admin');
 var cartRouter = require('./routes/cart');
 var app = express();
 
+app.use(methodOverride('_method'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

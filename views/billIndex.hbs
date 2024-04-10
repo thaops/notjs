@@ -197,95 +197,64 @@
             </ul>
         </div>
         <div class="main-content">
-        <div id="product-tab" class="tab-content" >
-    <h1>Product Management</h1>
-    <div class="action-buttons">
-        <button onclick="window.location.href='http://localhost:3000/add'">Add Product</button>
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Image</th>
-                <th scope="col">Title</th>
-                <th scope="col">Size</th>
-                <th scope="col">Origin</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each products}}
-            <tr>
-                <th scope="row">{{@index}}</th>
-                <td><img src="{{this.img}}" alt="{{this.title}}" style="max-width: 100px;"></td>
-                <td>{{this.title}}</td>
-                <td>{{this.kichthuoc}}</td>
-                <td>{{this.xuatxu}}</td>
-                <td>{{this.tinhtrang}}</td>
-                <td>
-            <a  href="/edit/{{this._id}}">Edit</a>
-                    <a href="" id="delete-product" data-toggle="modal" data-id="{{this._id}}"  data-target="#exampleModal">Delete</a>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-        </div>
-    </div>
-</div>
-
-</body>
-{{!-- delete --}}
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Xóa Product !!!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <div id="setting-tab" class="tab-content" >
+                {{#each bills}} 
+                <div>
+                    <h2>Thông tin người dùng và hóa đơn</h2>
+                    <table class="bill-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Thông tin người dùng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tên:</td>
+                                <td>{{this.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td>{{this.email}}</td>
+                            </tr>
+                            <tr>
+                                <td>Số điện thoại:</td>
+                                <td>{{this.phone}}</td>
+                            </tr>
+                            <tr>
+                                <td>Địa chỉ:</td>
+                                <td>{{this.diaChi}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="bill-table">
+                        <thead>
+                            <tr>
+                                <th colspan="4">Thông tin hóa đơn</th>
+                            </tr>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Giá Sản Phẩm</th>
+                                <th>Tong Tiền tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{this.title}}</td>
+                                <td>{{this.quantity}}</td>
+                                <td>{{ this.gia}}.000đ</td>
+                                <td>{{this.total}}.000đ</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="modal-body">
-                    Bạn Chắc chắn muốn xóa khóa học này ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="deleteButton" class="btn btn-danger">Xóa</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+                {{/each}}
             </div>
         </div>
     </div>
 
-{{!-- delete from --}}
-<!-- Trong thẻ <form> của bạn -->
-<form name="delete-product-from" method="POST" ></form>
+</body>
 
 
+</script>
 </html>
-
-
-<script>
-
-//xóa sản phẩm 
-document.addEventListener('DOMContentLoaded', function(){
-    var productId ; 
-    $('#exampleModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        productId = button.data('id'); 
-        console.log(productId);
-    });
-
-    var deleteProductForm = document.forms['delete-product-from'];
-    var deleteButton = document.getElementById('deleteButton');
-
-    deleteButton.onclick = function(){
-        deleteProductForm.action ='/delete/' + productId + '?_method=DELETE';
-        deleteProductForm.submit();
-    }
-
-
-});
-
-
-    </script>

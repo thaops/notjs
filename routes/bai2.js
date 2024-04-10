@@ -7,10 +7,19 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 const Register = require("../models/Register");
 
-// parse application/json
 app.use(bodyParser.json())
 
 
+router.get('/userIndex', function(req, res, next) {
+  Register.find({})
+      .exec()
+      .then((registers) => {
+          res.render('userIndex', { registers });
+      })
+      .catch((err) => {
+          res.status(500).json({ err: err.message });
+      });
+});
 //dang ky
 router.post('/register', function(req, res) {
    var name = req.body.name;
@@ -55,7 +64,6 @@ Register.findOne({
 .then(data=>{
     if(data){
         res.status(200).json({code:1,"msg":'thanh công',data});
-       
     }
     else{
         res.status(500).json({code:2,"msg":'khong thanh công'})
@@ -65,6 +73,8 @@ Register.findOne({
     res.status(500).json({msg:'có lỗi'})
 })
 });
+
+//api
 router.route('/api/edit/:_id')
   .get(function(req, res, next) {
     Register.find({_id: req.params._id})

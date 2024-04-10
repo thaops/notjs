@@ -189,7 +189,7 @@
         <div class="sidebar">
             <h2>Dashboard</h2>
             <ul>
-            <li><a href="/" class="tab-link active" >Products</a></li>
+             <li><a href="/" class="tab-link active" >Products</a></li>
             <li><a href="/users/userIndex" class="tab-link" >Users</a></li>
             <li><a href="/cate/getCategory" class="tab-link" >Category</a></li>
             <li><a href="/bill/getBill" class="tab-link" >Bill</a></li>
@@ -197,95 +197,38 @@
             </ul>
         </div>
         <div class="main-content">
-        <div id="product-tab" class="tab-content" >
-    <h1>Product Management</h1>
+<div id="user-from" class="tab-content" >
+    <h1>User Management</h1>
     <div class="action-buttons">
-        <button onclick="window.location.href='http://localhost:3000/add'">Add Product</button>
+        </button>
     </div>
     <table class="table">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Image</th>
-                <th scope="col">Title</th>
-                <th scope="col">Size</th>
-                <th scope="col">Origin</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Email</th>
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
+                
             </tr>
         </thead>
         <tbody>
-            {{#each products}}
+            {{#each registers}}
             <tr>
                 <th scope="row">{{@index}}</th>
-                <td><img src="{{this.img}}" alt="{{this.title}}" style="max-width: 100px;"></td>
-                <td>{{this.title}}</td>
-                <td>{{this.kichthuoc}}</td>
-                <td>{{this.xuatxu}}</td>
-                <td>{{this.tinhtrang}}</td>
-                <td>
-            <a  href="/edit/{{this._id}}">Edit</a>
-                    <a href="" id="delete-product" data-toggle="modal" data-id="{{this._id}}"  data-target="#exampleModal">Delete</a>
-                </td>
+                <td>{{this.email}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.phone}}</td>
+                
             </tr>
             {{/each}}
         </tbody>
     </table>
-        </div>
-    </div>
 </div>
-
-</body>
-{{!-- delete --}}
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Xóa Product !!!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Bạn Chắc chắn muốn xóa khóa học này ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="deleteButton" class="btn btn-danger">Xóa</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
         </div>
     </div>
-
-{{!-- delete from --}}
-<!-- Trong thẻ <form> của bạn -->
-<form name="delete-product-from" method="POST" ></form>
+</body>
 
 
+</script>
 </html>
-
-
-<script>
-
-//xóa sản phẩm 
-document.addEventListener('DOMContentLoaded', function(){
-    var productId ; 
-    $('#exampleModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        productId = button.data('id'); 
-        console.log(productId);
-    });
-
-    var deleteProductForm = document.forms['delete-product-from'];
-    var deleteButton = document.getElementById('deleteButton');
-
-    deleteButton.onclick = function(){
-        deleteProductForm.action ='/delete/' + productId + '?_method=DELETE';
-        deleteProductForm.submit();
-    }
-
-
-});
-
-
-    </script>

@@ -11,23 +11,68 @@ app.use(bodyParser.json())
 const Category = require("../models/CategoryModel");
 const Product = require("../models/Product");
 
-router.post('/post', function(req, res){
-    var name = req.body.name;
-    var parentId = req.body.parentId || null;
-    if (parentId) {
-        parentId = new ObjectId(parentId);
-    }
-    Category.create({
-        name: name,
-        parentId: parentId
+
+
+router.get("/getCategory", function (req, res) {
+  Category.find({})
+    .then((categories) => {
+      res.render('categoryIndex',{categories});
     })
-    .then(data => {
-        res.json('Thêm thành công');
+    .catch((err) => {
+      res.status(500).json("that bai");
+    });
+});
+
+router.get('/addCategory', function(req, res){
+    Category.find({ parentId: null }).exec()
+    .then(categories => {
+        res.render('addCategory',{categories});
     })
     .catch(err => {
         res.status(500).json('Thất bại');
     });
-})
+});
+  router.post('/addCategory', function(req, res, next) {
+    const categoryData = req.body;
+    const category = new Category(categoryData); 
+    category.save() 
+      .then(savedProduct => {
+        res.redirect('/cate/getCategory')
+      })
+      .catch(error => {
+        res.status(500).send('Lỗi khi lưu sản phẩm: ' + error);
+      });
+  });
+
+
+  router.get('/editCategory/:_id', function(req, res, next) {
+    Category.findById(req.params._id)
+    .then(category => {
+    res.render('editCategory',{category: category});
+   })
+   .catch(next)
+  });
+  
+  router.post('/editCategory/:_id', function(req, res, next) {
+    Category.updateOne({_id: req.params._id}, req.body)
+    .then(() => res.redirect('/cate/getCategory'))
+    .catch(next);
+  });
+
+  router.delete('/deleteCategory/:_id', function(req, res, next){
+    Category.deleteOne({_id: req.params._id})
+    .then(data => {
+      res.redirect('/cate/getCategory')
+    })
+    .catch(err => {
+        res.status(500).json({msg:'xóa thất bại'});
+    });
+  });
+  
+//api
+
+
+
 
 router.get('/get', function(req,res){
     Category.find()
@@ -37,7 +82,9 @@ router.get('/get', function(req,res){
     .catch(err=>{
         res.status(500).json('that bai')
     })
-})
+});
+
+
 
 router.post('/edit/:_id', function(req, res, next) {
     Category.updateOne({_id: req.params._id}, req.body)

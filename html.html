@@ -3,97 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
-    <style>
-       
-        
-        .containerbill {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-        .headerbill {
-            padding: 20px;
-            text-align: center;
-            background-color: #29b952;
-            color: #fff;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-        .headerbill h1 {
-            margin: 0;
-        }
-        .invoice-details {
-            padding: 20px;
-        }
-        .invoice-details p {
-            margin: 5px 0;
-        }
-        .bill-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .bill-table th, .bill-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        .bill-table th {
-            background-color: #f2f2f2;
-        }
-        .total {
-            padding: 20px;
-            text-align: right;
-        }
-        .total p {
-            margin: 5px 0;
-            font-weight: bold;
-        }
-    </style>
+    <title>Thông tin người dùng và hóa đơn</title>
+
 </head>
 <body>
-    <div class="containerbill">
-        <div class="headerbill">
-            <h1>Invoice</h1>
-            <p>Date: January 1, 2022</p>
-        </div>
-        <div class="invoice-details">
-            <p><strong>Name:</strong> Thao</p>
-            <p><strong>Email:</strong> thao@gmail.com</p>
-        </div>
+    <div class="container">
+        <h2>Thông tin người dùng và hóa đơn</h2>
         <table class="bill-table">
             <thead>
                 <tr>
-                    <th>Item</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
+                    <th colspan="2">Thông tin người dùng</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Hoa A</td>
-                    <td>2</td>
-                    <td>$20.00</td>
+                    <td>Tên:</td>
+                    <td>Thao</td>
                 </tr>
                 <tr>
-                    <td>Hoa B</td>
-                    <td>1</td>
-                    <td>$15.00</td>
+                    <td>Email:</td>
+                    <td>trung@gmail.com</td>
                 </tr>
                 <tr>
-                    <td>Hoa C</td>
-                    <td>3</td>
-                    <td>$24.00</td>
+                    <td>Số điện thoại:</td>
+                    <td>01200313</td>
+                </tr>
+                <tr>
+                    <td>Địa chỉ:</td>
+                    <td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
                 </tr>
             </tbody>
         </table>
-        <div class="total">
-            <p><strong>Total:</strong> $59.00</p>
-            <button>Xát nhận</button>
-            <button>Huy</button>
-        </div>
+
+        <br>
+
+        <table class="bill-table">
+            <thead>
+                <tr>
+                    <th colspan="3">Thông tin hóa đơn</th>
+                </tr>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Spider Plant</td>
+                    <td>10</td>
+                    <td>$800.00</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    
 </body>
 </html>

@@ -2,9 +2,10 @@
 var express = require("express");
 const { required } = require("nodemon/lib/config");
 var router = express.Router();
-const Course = require("../models/Course");
+const Bill = require("../models/Bill");
 const Product = require("../models/Product");
 const Category = require("../models/CategoryModel");
+const Register = require("../models/Register");
 const methodOverride = require('method-override');
 const app = express();
 const db = require("../config/db");
@@ -16,12 +17,13 @@ app.use(methodOverride('_method'));
 
 router.get("/", function (req, res, next) {
   Promise.all([
-    Course.find({}).exec(),
+    Register.find({}).exec(),
     Product.find({}).exec(),
-    Category.find({}).exec()
+    Category.find({}).exec(),
+    Bill.find().exec()
   ])
-  .then(([courses, products, categories]) => {
-    res.render('index', { courses, products, categories });
+  .then(([registers, products, categories, bills]) => {
+    res.render('index', { registers, products, categories, bills });
   })
   .catch((err) => {
     res.status(500).json({ err: err.message });
@@ -29,16 +31,6 @@ router.get("/", function (req, res, next) {
 });
 
 
-router.get("/courses", function (req, res, next) {
-  Course.find({}).exec()
-  .then((courses)=>{
-    res.render('courses', {courses});
-  })
-  .catch((err) => {
-    res.status(500).json({ err: err.message });
-  });
- 
-});
 
 router.get('/add', function(req, res, next) {
   res.render('add');
@@ -49,26 +41,18 @@ router.post('/add', function(req, res, next) {
 
   product.save() 
     .then(savedProduct => {
-      
       res.redirect('/')
     })
     .catch(error => {
-      // Xử lý khi có lỗi xảy ra trong quá trình lưu
       res.status(500).send('Lỗi khi lưu sản phẩm: ' + error);
     });
 });
-
-
-
-
 router.get('/edit/:_id', function(req, res, next) {
   Product.findById(req.params._id)
   .then(product => {
   res.render('edit',{product: product});
  })
  .catch(next)
-
-  // res.render('edit')
 
 });
 
@@ -78,10 +62,16 @@ router.post('/edit/:_id', function(req, res, next) {
     .catch(next);
 });
 
+
+
 router.delete('/delete/:_id', function(req, res, next){
   Product.deleteOne({_id: req.params._id})
-      .then(() => res.redirect('back'))
-      .catch(next);
+  .then(data => {
+    res.redirect('/')
+  })
+  .catch(err => {
+      res.status(500).json({msg:'xóa thất bại'});
+  });
 });
 
 
@@ -99,7 +89,7 @@ router.delete('/api/delete/:_id', function(req, res, next){
 
 router.get('/api/get/product', function(req,res){
 
-  Product.find()
+  Product.find().limit(4)
   .then(product => {
     
       res.json(product)

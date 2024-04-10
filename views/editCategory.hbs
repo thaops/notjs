@@ -54,45 +54,14 @@
 </head>
 <body>
     <div class="container">
-        <h2>Add Product</h2>
-        <form id="productFrom" method="POST" >
+        <h2>Edit category</h2>
+        <form method="POST" action="/cate/editCategory/{{category._id}}?_method=PUT" >
+         <input type="hidden" name="_method" value="PUT">
             <label for="title">Tên sản phẩm:</label>
-            <input type="text" id="title" name="title" required>
-
-            <label for="gia">Giá Tiền:</label>
-            <input type="text" id="gia" name="gia" required>
-
-            <label for="loai">Loai Cây:</label>
-            <input type="text" id="loai" name="loai" required>
-
-             <label for="kichthuoc">Kích Cở:</label>
-            <input type="text" id="kichthuoc" name="kichthuoc" required>
-             <label for="xuatxu">Xuất Xứ:</label>
-            <input type="text" id="xuatxu" name="xuatxu" required>
-
-            <label for="titlemini">Môi trường sống:</label>
-            <input type="text" id="titlemini" name="titlemini" required>
-
-
-            <label for="tinhtrang">Số lượng:</label>
-            <input type="text" id="tinhtrang" name="tinhtrang" required>
-
-            <label for="img">Link ảnh:</label>
-            <input type="text" id="img" name="img" required>
-            <button type="submit">Add Product</button>
+            <input type="text" value="{{category.name}}" id="name" name="name" required>
+            <button type="submit">Save category</button>
         </form>
     </div>
+    
 </body>
-<script>
-    document.getElementById('productFrom').addEventListener('submit', (event) => {
-        const giaInput = document.getElementById('gia');
-        const giaValue = giaInput.value.trim();
-        if (isNaN(giaValue)) {
-            alert(" nhập giá tiền là một số.");
-            giaInput.focus();
-            event.preventDefault(); 
-        }
-    });
-</script>
-
 </html>

@@ -16,7 +16,7 @@ const BillSchema = new mongoose.Schema({
     },
     status: {
         type: Number,
-        default: 0 // Giá trị mặc định là 0 nếu không được cung cấp
+        default: 0 
     },
     products: [{
         type: ObjectId,
@@ -25,7 +25,15 @@ const BillSchema = new mongoose.Schema({
     img:{type:String,required: true},
     title:{type:String},
     titlemini:{type:String},
-    
+    name: {type: String},
+    email: {type: String},
+    diaChi: {type: String},
+    phone:{type:String},
+    gia:{type:Number,required: true},
+    quantity: {
+        type: Number,
+        required: true
+    },
 });
 
 const CartDetail = mongoose.model('Bill', BillSchema);

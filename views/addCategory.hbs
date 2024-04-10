@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Product</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff; /* Màu nền xanh nhạt */
+  }
+  .container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff; /* Màu nền trắng */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hiển thị đổ bóng */
+  }
+  h2 {
+    color: #2ecc71; /* Màu xanh lá cây */
+    text-align: center;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  label {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  input, select {
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #2ecc71; /* Màu xanh lá cây */
+    color: #fff;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #27ae60; /* Màu xanh lá cây tối hơn khi hover */
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Add Product</h2>
+  <form method="POST">
+    <label for="name">Tên sản phẩm:</label>
+    <input type="text" id="name" name="name" required />
+    <label for="parentId">Parent ID:</label>
+    <select id="parentId" name="parentId">
+      {{#each categories}}
+      <option value="{{this._id}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+    <button type="submit">Add Category</button>
+  </form>
+</div>
+</body>
+</html>

@@ -197,47 +197,40 @@
             </ul>
         </div>
         <div class="main-content">
-        <div id="product-tab" class="tab-content" >
-    <h1>Product Management</h1>
+            <div id="order-from" class="tab-content" >
+                <!-- Nội dung cho tab Orders -->
+                <h1>Category Management</h1>
     <div class="action-buttons">
-        <button onclick="window.location.href='http://localhost:3000/add'">Add Product</button>
+        <button onclick="window.location.href='http://localhost:3000/cate/addCategory'">Add Category</button>
     </div>
     <table class="table">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Image</th>
-                <th scope="col">Title</th>
-                <th scope="col">Size</th>
-                <th scope="col">Origin</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Categories</th>
+                 <th scope="col">Actions</th>
+               
             </tr>
         </thead>
         <tbody>
-            {{#each products}}
+            {{#each categories}}
             <tr>
                 <th scope="row">{{@index}}</th>
-                <td><img src="{{this.img}}" alt="{{this.title}}" style="max-width: 100px;"></td>
-                <td>{{this.title}}</td>
-                <td>{{this.kichthuoc}}</td>
-                <td>{{this.xuatxu}}</td>
-                <td>{{this.tinhtrang}}</td>
+                <td>{{this.name}}</td>
+                
                 <td>
-            <a  href="/edit/{{this._id}}">Edit</a>
-                    <a href="" id="delete-product" data-toggle="modal" data-id="{{this._id}}"  data-target="#exampleModal">Delete</a>
+                <a  href="/cate/editCategory/{{this._id}}">Edit</a>
+                    <a href="" id="delete-category" data-toggle="modal" data-id="{{this._id}}"  data-target="#exampleModalCategory">Delete</a>
                 </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
+    </div>
         </div>
     </div>
-</div>
-
-</body>
-{{!-- delete --}}
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{!-- deleFromCate --}}
+    <div class="modal fade" id="exampleModalCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -250,42 +243,34 @@
                     Bạn Chắc chắn muốn xóa khóa học này ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="deleteButton" class="btn btn-danger">Xóa</button>
+                    <button type="button" id="deleteButtonCategory" class="btn btn-danger">Xóa</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-
-{{!-- delete from --}}
-<!-- Trong thẻ <form> của bạn -->
-<form name="delete-product-from" method="POST" ></form>
-
-
-</html>
-
-
-<script>
-
-//xóa sản phẩm 
+{{!-- fromCate --}}
+    <form name="delete-category-from" method="POST" ></form>
+    <script>
+        //Xoa Category
 document.addEventListener('DOMContentLoaded', function(){
-    var productId ; 
-    $('#exampleModal').on('show.bs.modal', function (event) {
+    var categoryId ; 
+    $('#exampleModalCategory').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
-        productId = button.data('id'); 
-        console.log(productId);
+        categoryId = button.data('id'); 
+        console.log(categoryId);
     });
 
-    var deleteProductForm = document.forms['delete-product-from'];
-    var deleteButton = document.getElementById('deleteButton');
+    var deleteCategory = document.forms['delete-category-from'];
+    var deleteButtonCategory = document.getElementById('deleteButtonCategory');
 
-    deleteButton.onclick = function(){
-        deleteProductForm.action ='/delete/' + productId + '?_method=DELETE';
-        deleteProductForm.submit();
+    deleteButtonCategory.onclick = function(){
+        deleteCategory.action = '/cate/deleteCategory/' + categoryId +'?_method=DELETE';
+        deleteCategory.submit();
     }
-
-
 });
 
-
     </script>
+</body>
+</script>
+</html>
