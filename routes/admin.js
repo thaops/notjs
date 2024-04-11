@@ -10,8 +10,7 @@ router.get('/login', function(req, res) {
 router.post('/login', function(req, res, next) {
     const { email, pass } = req.body;
     Admin.findOne({ email: email, pass: pass })
-        .then((admin) => res.redirect('/'))
-            
+        .then((admin) => res.redirect('/'))     
         .catch((err) => {
             res.status(500).json({ err: err.message });
         });
