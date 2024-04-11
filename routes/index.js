@@ -15,21 +15,16 @@ app.use(methodOverride('_method'));
 
 /* GET home page. */
 
-router.get("/", function (req, res, next) {
-  Promise.all([
-    Register.find({}).exec(),
-    Product.find({}).exec(),
-    Category.find({}).exec(),
-    Bill.find().exec()
-  ])
-  .then(([registers, products, categories, bills]) => {
-    res.render('index', { registers, products, categories, bills });
-  })
-  .catch((err) => {
-    res.status(500).json({ err: err.message });
-  });
-});
 
+router.get("/", function (req, res) {
+  Product.find({})
+    .then((products) => {
+      res.render('index',{products});
+    })
+    .catch((err) => {
+      res.status(500).json("that bai");
+    });
+});
 
 
 router.get('/add', function(req, res, next) {
