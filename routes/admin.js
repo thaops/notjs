@@ -10,11 +10,19 @@ router.get('/login', function(req, res) {
 router.post('/login', function(req, res, next) {
     const { email, pass } = req.body;
     Admin.findOne({ email: email, pass: pass })
-        .then((admin) => res.redirect('/'))     
+        .then((admin) => {
+            if (admin) {
+                res.redirect('/');
+            } else {
+                res.status(401).send("Email hoặc mật khẩu không chính xác");
+            }
+        })
         .catch((err) => {
+            // Xử lý lỗi nếu có
             res.status(500).json({ err: err.message });
         });
-  });
+});
+
 
 
   module.exports = router;
